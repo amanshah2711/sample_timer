@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <title>Exam Tool</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css'%} ">
+
+    {% load static %}
+    <script src="{% static 'main.js' %}"></script>
+    <body>
+	<script>
+    		{% load static %}
+		var im_str = "{% static 'close.svg' %}"
+	</script>
+        <div class="container">
+            <div class="control">
+                <div class="timer">
+                    
+                        <div class="enter_time">
+                            Enter time remaining:
+                        </div>
+                        <div class="time_input">
+                            <form action="update_time" id="text_time" method="POST">
+                                {% csrf_token %}
+                                <input type="text" name="time_enter" id="time_text">
+                            </form>
+                        </div>
+                
+                </div>
+                <div class='start'>
+                    <form action="start" method="post" id='form1'>
+                        {%csrf_token%}
+                        <input type="submit" value="Start Exam" form="form1">
+                    </form>
+                </div>
+                <div class="clarifications">
+                    <div class="clarifications_input_container">
+                        <div class="clarifications_input_text">
+                            Add a clarification:
+                        </div>
+                        <div class = clarifications_input>
+                            <form action="update_clarification" id="text_clarification" method="post">
+                            {% csrf_token %}
+                            <textarea name="enter" id="new_clarification" cols = "" rows=""></textarea>
+                            <!-- <input id="new_clarification" type="text"> -->
+                        </form>
+                        </div>
+                    </div>
+                    <div class="current_clarifications" id="test">
+                        {% if messages %}
+                            {% for m in messages %}
+                            <script>
+                                var new_entry_container = document.createElement("div");
+                                new_entry_container.style.display = 'flex';
+                                new_entry_container.style.backgroundColor = "white";
+                                new_entry_container.style.flexDirection='row';
+                                var new_entry =document.createElement("div");
+                                //var para = document.createElement('p');
+                                
+                                //para.appendChild(node);
+                                //new_entry.append(para);
+
+                                function decodeHtml(html) {
+                                        var txt = document.createElement("textarea");
+                                        txt.innerHTML = html;
+                                        return txt.value;
+                                    }
+                                new_entry_container.appendChild(new_entry);
+                                new_entry.textContent= decodeHtml("{{m}}");                              
+                                 //para.style.overflow="hidden"
+
+                                new_entry.style.width="95%";
+                                new_entry.style.wordWrap='break-word'
+                                new_entry.style.textOverflow=scrollY;
+                                new_entry.style.height='auto';
+                                new_entry.style.fontSize='1.5em';
+                                new_entry.style.margin='0px'
+                                //new_entry_container.style.height='2em'
+                                new_entry_container.style.padding = "20px";
+                                new_entry_container.style.margin = "15px";
+                                new_entry_container.style.webkitBoxShadow ='10px 10px 14px 0px rgba(176,176,176,1)';
+
+                                var close_button = document.createElement("input");
+                                close_button.type = "image";
+                                close_button.src = im_str;
+                                close_button.style.cssFloat = "right";
+                                close_button.onclick = function(){
+                                    var form = document.createElement('form');
+                                    form.setAttribute('method', 'post');
+                                    form.setAttribute('action', 'delete');
+                                    mess  = document.createElement('input');
+                                    mess.type = 'hidden';
+                                    mess.name = 'which';
+                                    mess.value = decodeHtml("{{m}}");
+                                    //var csrf_token = "{%csrf_token %}";
+                                    form.appendChild(mess);
+                                    document.body.appendChild(form);
+                                    form.submit();
+                                };
+                                //new_entry.appendChild(para);
+                                new_entry_container.appendChild(close_button);
+                                document.getElementById("test").appendChild(new_entry_container);
+                            </script>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="preview">
+                <iframe src="http://localhost:8000/display" frameborder="2px" height='100%' scrolling='yes' id='pframe'></iframe>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,116 @@
+body {
+    background-color: whitesmoke;
+    height: 100%;
+    width: 100%;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+}
+.control {
+    flex:1 ;
+    background-color: whitesmoke;
+    width:50%;
+    
+}
+
+.preview {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    
+}
+
+.timer {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 0%;
+}
+
+input[type=submit] {
+    background-color: #008CBA; /* Blue*/
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor:pointer;
+    border-radius: 5px; 
+}
+.start {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.start input{
+    align-self: center;
+    margin: 5px;
+    font-size: 1.5rem;
+}
+.time_remaining_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.time_remaining_text {
+    text-align: center;
+    font-size: 4rem;
+}
+
+.enter_time {
+    text-align: center;
+}
+.time_remaining {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.enter_time{
+    background-color: whitesmoke;
+    font-size: 3em;
+
+}
+
+.time_input input{
+    font-size: 2rem;
+    width: 100%;
+}
+.time_input{
+    background-color: whitesmoke;
+    align-content: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+.clarifications{
+    background-color: whitesmoke;
+    padding: 5px;
+    height: 100%
+}
+
+.clarifications_input_text{
+    background-color: whitesmoke;
+    font-size: 3rem;
+    text-align: center
+}
+
+.clarifications_input {
+    padding: 0px;
+    margin: 5px;
+}
+.clarifications_input textarea {
+    width: 100%;
+    resize: none;
+    margin: 0px;
+    font-size: 1.5em;
+   
+}
+
+.preview iframe {
+    height: 100%;
+}

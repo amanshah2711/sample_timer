@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <title>Exam Tool</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main1.css' %}">
+
+    {% load static %}
+    <script src="{% static 'main.js' %}"></script>
+    <body>
+        <div class="container"> 
+            <div class='timer' id = 'target1'> 
+                <h1 id='locate_time' align='center'></h1>
+                <script >
+                    
+                    var x = setInterval(function() { 
+                    var counter = 0;
+                    var hours = document.getElementById("hour").innerText;
+                    var minutes = document.getElementById("minute").innerText;
+                    var now = new Date().getTime();
+                    var start = document.getElementById('time_source').innerText;
+                    var distance = now - start;
+                    var fhours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var fminutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var fseconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    var adjust = 0;
+                    var sadjust =0;
+                    
+                    $('div#target').load('http://localhost:8000/display/ #target');
+                    if (minutes - fminutes <= 0){
+                        adjust = 1;
+                    }
+                    if(start == 0 && minutes == 0 && hours == 0){
+                        document.getElementById('locate_time').innerText = "0h " + "0m " + "0s ";
+                    }
+                    else if(start == 0) {
+                        document.getElementById('locate_time').innerText = hours +"h " + minutes + "m " +  "0s "; 
+                    }
+                    else{
+                    document.getElementById('locate_time').innerText = (hours - adjust - fhours) + "h " + (((minutes-1- fminutes)%60 + 60)%60) + "m " + (((0 - fseconds)%60 + 60)%60) + "s ";}
+                                }, 10);
+                    
+                    var t = setInterval(function() {
+                        console.log(document.getElementById('time_source'))
+                        if (document.getElementById('time_source').innerText == 0){
+
+                        $('div#target1').load('http://localhost:8000/display/ #target1');
+
+                        }
+                    }, 3000)
+                    
+                </script>
+                <h2 id='time_source'>{{time_object.start_time}}</h2>
+                <h2 id='hour'>{{hours}}</h2>
+                <h2 id='minute'>{{minutes}}</h2>
+            </div>
+            <div class='clarifications' id='target'>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+                        </script>
+                        <script>
+                        document.getElementById('target1').style.height = document.getElementById('target').style.height;
+                        </script>
+                <h1 align='center'>Clarifications</h1>
+                <ul>
+                    {%if messages %}
+                        {% for m in messages%}
+                        <li> {{m}} </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
